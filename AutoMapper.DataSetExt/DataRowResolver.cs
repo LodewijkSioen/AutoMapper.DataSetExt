@@ -64,7 +64,7 @@ namespace AutoMapper.DataSetExt
 
             var childRows = row.GetChildRows(_relationName);
 
-            return source.New(Mapper.Map(childRows, typeof(DataRow[]), source.Context.DestinationType));
+            return source.New(childRows, source.Context.DestinationType);
         }
     }
 
@@ -83,7 +83,7 @@ namespace AutoMapper.DataSetExt
 
             var parentRow = row.GetParentRow(_relationName);
 
-            return source.New(Mapper.Map(parentRow, typeof(DataRow), source.Context.DestinationType));
+            return source.New(parentRow, source.Context.DestinationType);
         }
     }
 }

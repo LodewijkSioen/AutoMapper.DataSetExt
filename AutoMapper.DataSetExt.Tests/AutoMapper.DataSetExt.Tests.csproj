@@ -52,10 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapWithChildrowTests.cs" />
     <Compile Include="Data\Factory.cs" />
+    <Compile Include="MapWithParentChildRelation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MapWithParentrowTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
