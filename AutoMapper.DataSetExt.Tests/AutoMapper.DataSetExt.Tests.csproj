@@ -52,10 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RowWithChildrowTests.cs" />
+    <Compile Include="MapWithChildrowTests.cs" />
     <Compile Include="Data\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RowWithParentrowTests.cs" />
+    <Compile Include="MapWithParentrowTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
