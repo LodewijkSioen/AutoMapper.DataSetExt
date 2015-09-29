@@ -45,7 +45,7 @@ namespace AutoMapper.DataSetExt
         {
             var row = source.ExtractDataRow();
 
-            return source.New(Convert.ChangeType(row[source.Context.MemberName], source.Context.DestinationType));
+            return source.New(row[source.Context.MemberName]);
         }
     }
 
