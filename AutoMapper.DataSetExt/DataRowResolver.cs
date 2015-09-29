@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using AutoMapper.Internal;
 
 namespace AutoMapper.DataSetExt
 {
@@ -81,8 +82,13 @@ namespace AutoMapper.DataSetExt
         {
             var row = source.ExtractDataRow();
 
-            var parentRow = row.GetParentRow(_relationName);
+            if (source.Context.DestinationType.IsEnumerableType())
+            {
+                var parentRows = row.GetParentRows(_relationName);
+                return source.New(parentRows, source.Context.DestinationType);
+            }
 
+            var parentRow = row.GetParentRow(_relationName);
             return source.New(parentRow, source.Context.DestinationType);
         }
     }
