@@ -20,6 +20,15 @@ namespace AutoMapper.DataSetExt
             return memberConfigurationExpression;
         }
 
+        public static IMemberConfigurationExpression<DataRow> WithChildRelation(
+            this IMemberConfigurationExpression<DataRow> memberConfigurationExpression,
+            DataRelation relation)
+        {
+            memberConfigurationExpression.ExplicitExpansion();
+            memberConfigurationExpression.ResolveUsing(new ChildRowResolver(relation));
+            return memberConfigurationExpression;
+        }
+
         public static IMemberConfigurationExpression<DataRow> WithParentRelation(
             this IMemberConfigurationExpression<DataRow> memberConfigurationExpression,
             string relationName)
@@ -28,11 +37,27 @@ namespace AutoMapper.DataSetExt
             return memberConfigurationExpression;
         }
 
+        public static IMemberConfigurationExpression<DataRow> WithParentRelation(
+            this IMemberConfigurationExpression<DataRow> memberConfigurationExpression,
+            DataRelation relation)
+        {
+            memberConfigurationExpression.ResolveUsing(new ParentRowResolver(relation));
+            return memberConfigurationExpression;
+        }
+
         public static IMemberConfigurationExpression<DataRow> MapFromColumn(
             this IMemberConfigurationExpression<DataRow> memberConfigurationExpression,
             string columnName)
         {
             memberConfigurationExpression.MapFrom(r => r[columnName]);
+            return memberConfigurationExpression;
+        }
+
+        public static IMemberConfigurationExpression<DataRow> MapFromColumn(
+            this IMemberConfigurationExpression<DataRow> memberConfigurationExpression,
+            DataColumn column)
+        {
+            memberConfigurationExpression.MapFrom(r => r[column.ColumnName]);
             return memberConfigurationExpression;
         }
 
@@ -67,12 +92,17 @@ namespace AutoMapper.DataSetExt
             _relationName = relationName;
         }
 
+        public ChildRowResolver(DataRelation relation)
+        {
+            _relationName = relation.RelationName;
+        }
+
         public ResolutionResult Resolve(ResolutionResult source)
         {
             var row = source.ExtractDataRow();
 
             var childRows = row.GetChildRows(_relationName);
-
+            
             return source.New(childRows, source.Context.DestinationType);
         }
     }
@@ -84,6 +114,11 @@ namespace AutoMapper.DataSetExt
         public ParentRowResolver(string relationName)
         {
             _relationName = relationName;
+        }
+
+        public ParentRowResolver(DataRelation relation)
+        {
+            _relationName = relation.RelationName;
         }
 
         public ResolutionResult Resolve(ResolutionResult source)

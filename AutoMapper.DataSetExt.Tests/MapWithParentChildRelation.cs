@@ -10,22 +10,24 @@ namespace AutoMapper.DataSetExt.Tests
     {
         public MapWithParentChildRelationTests()
         {
+            var set = new DemoDataSet();
+
             Mapper.CreateMap<DataRow, Person>()
                 .FromDataSet()
-                .ForMember(m => m.Name, m => m.MapFromColumn("col_name"))
-                .ForMember(m => m.Properties, m => m.WithChildRelation("PersonProperties"));
+                .ForMember(m => m.Name, m => m.MapFromColumn(set.Persons.Name))
+                .ForMember(m => m.Properties, m => m.WithChildRelation(set.PersonProperties));
 
             Mapper.CreateMap<DataRow, Address>()
                 .FromDataSet()
-                .ForMember(m => m.Owner, m => m.WithParentRelation("PersonProperties"))
-                .ForMember(m => m.Inhabitants, m => m.WithParentRelation("AddressDomicile"));
+                .ForMember(m => m.Owner, m => m.WithParentRelation(set.PersonProperties))
+                .ForMember(m => m.Inhabitants, m => m.WithParentRelation(set.AddressDomicile));
         }
 
         public void MapParentToChildrenRelation()
         {
             var set = Factory.CreateDataSet();
 
-            var perons = Mapper.Map<IList<Person>>(set.Tables["Persons"].Rows);
+            var perons = Mapper.Map<IList<Person>>(set.Persons.Rows);
 
             perons.Count.ShouldBe(2);
             var jos = perons[0];
@@ -46,7 +48,7 @@ namespace AutoMapper.DataSetExt.Tests
         {
             var set = Factory.CreateDataSet();
 
-            var addresses = Mapper.Map<IList<Address>>(set.Tables["Addresses"].Rows);
+            var addresses = Mapper.Map<IList<Address>>(set.Addresses.Rows);
 
             addresses.Count.ShouldBe(3);
             var address1 = addresses[0];

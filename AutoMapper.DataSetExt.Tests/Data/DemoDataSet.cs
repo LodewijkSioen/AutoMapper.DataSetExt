@@ -5,12 +5,22 @@ namespace AutoMapper.DataSetExt.Tests.Data
     public class DemoDataSet : DataSet
     {
         public DemoDataSet()
+            :base("DemoDataSet")
         {
-            Tables.Add(new PersonDataTable());
-            Tables.Add(new AddressDataTable());
+            Tables.Add(Persons);
+            Tables.Add(Addresses);
 
-            Relations.Add("PersonProperties", Tables["Persons"].Columns["Id"], Tables["Addresses"].Columns["PersonId"], false);
-            Relations.Add("AddressDomicile", Tables["Persons"].Columns["DomicileId"], Tables["Addresses"].Columns["Id"], false);
+            PersonProperties = new DataRelation("PersonProperties", Persons.Id, Addresses.PersonId, false);
+            Relations.Add(PersonProperties);
+
+            AddressDomicile = new DataRelation("AddressDomicile", Persons.DomicileId, Addresses.Id, false);
+            Relations.Add(AddressDomicile);
         }
+
+        public PersonDataTable Persons { get; } = new PersonDataTable();
+        public AddressDataTable Addresses { get; } = new AddressDataTable();
+
+        public DataRelation PersonProperties { get; }
+        public DataRelation AddressDomicile { get; }
     }
 }
