@@ -28,6 +28,14 @@ namespace AutoMapper.DataSetExt
             return memberConfigurationExpression;
         }
 
+        public static IMemberConfigurationExpression<DataRow> MapFromColumn(
+            this IMemberConfigurationExpression<DataRow> memberConfigurationExpression,
+            string columnName)
+        {
+            memberConfigurationExpression.MapFrom(r => r[columnName]);
+            return memberConfigurationExpression;
+        }
+
         internal static DataRow ExtractDataRow(this ResolutionResult source)
         {
             var row = source.Context.SourceValue as DataRow;

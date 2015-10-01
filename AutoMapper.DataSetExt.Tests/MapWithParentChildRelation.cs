@@ -12,6 +12,7 @@ namespace AutoMapper.DataSetExt.Tests
         {
             Mapper.CreateMap<DataRow, Person>()
                 .FromDataSet()
+                .ForMember(m => m.Name, m => m.MapFromColumn("col_name"))
                 .ForMember(m => m.Properties, m => m.WithChildRelation("PersonProperties"));
 
             Mapper.CreateMap<DataRow, Address>()
