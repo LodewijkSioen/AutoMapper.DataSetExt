@@ -59,7 +59,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Address.cs" />
+    <Compile Include="Data\AddressDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\DemoDataSet.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Factory.cs" />
+    <Compile Include="Data\Person.cs" />
+    <Compile Include="Data\PersonDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MapWithParentChildRelation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
