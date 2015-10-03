@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassicDataSetTests.cs" />
     <Compile Include="Data\Address.cs" />
     <Compile Include="Data\AddressDataTable.cs">
       <SubType>Component</SubType>
@@ -71,7 +72,7 @@
     <Compile Include="Data\PersonDataTable.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MapWithParentChildRelation.cs" />
+    <Compile Include="AutoMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

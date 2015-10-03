@@ -6,9 +6,9 @@ using Shouldly;
 
 namespace AutoMapper.DataSetExt.Tests
 {
-    public class MapWithParentChildRelationTests : IDisposable
+    public class AutoMapperTests : IDisposable
     {
-        public MapWithParentChildRelationTests()
+        public AutoMapperTests()
         {
             var set = new DemoDataSet();
 
@@ -23,7 +23,7 @@ namespace AutoMapper.DataSetExt.Tests
                 .ForMember(m => m.Inhabitants, m => m.WithParentRelation(set.AddressDomicile));
         }
 
-        public void MapParentToChildrenRelation()
+        public void ParentToChildRelation()
         {
             var set = Factory.CreateDataSet();
 
@@ -44,7 +44,7 @@ namespace AutoMapper.DataSetExt.Tests
             andré.Properties[0].Owner.ShouldBe(andré);
         }
 
-        public void MapChildToParentRelation()
+        public void ChildToParentRelation()
         {
             var set = Factory.CreateDataSet();
 

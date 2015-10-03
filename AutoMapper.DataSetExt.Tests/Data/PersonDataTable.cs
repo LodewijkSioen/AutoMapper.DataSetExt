@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AutoMapper.DataSetExt.Tests.Data
 {
-    public class PersonDataTable : DataTable
+    public class PersonDataTable : DataTable<PersonDataRow>
     {
         public PersonDataTable()
             : base("Persons")
@@ -18,23 +18,17 @@ namespace AutoMapper.DataSetExt.Tests.Data
         public DataColumn Name { get; } = new DataColumn("col_name", typeof(string));
         public DataColumn DomicileId { get; } = new DataColumn("DomicileId", typeof(int));
 
-        protected override Type GetRowType()
-        {
-            return typeof (PersonDataRow);
-        }
-
-        protected override DataRow NewRowFromBuilder(DataRowBuilder builder)
-        {
-            return new PersonDataRow(builder);
-        }
+        protected override DataRow NewRowFromBuilder(DataRowBuilder builder) => new PersonDataRow(builder);
     }
 
-    public class PersonDataRow: DataRow
+    public class PersonDataRow: DataRow<PersonDataTable>
     {
         public PersonDataRow(DataRowBuilder builder) : base(builder)
         {
         }
 
+        public int Id => this.Field<int>(Table.Id);
+        public string Name => this.Field<string>(Table.Name);
         public AddressDataRow[] Properties => GetChildRows("PersonProperties").Cast<AddressDataRow>().ToArray();
     }
 }

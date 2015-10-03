@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
 namespace AutoMapper.DataSetExt.Tests.Data
 {
-    public class AddressDataTable : DataTable
+    public class AddressDataTable : DataTable<AddressDataRow>
     {
         public AddressDataTable()
             : base("Addresses")
@@ -19,25 +17,19 @@ namespace AutoMapper.DataSetExt.Tests.Data
         public DataColumn Id { get; }= new DataColumn("Id", typeof(int));
         public DataColumn PersonId { get; }= new DataColumn("PersonId", typeof(int));
         public DataColumn StreetName { get; }= new DataColumn("StreetName", typeof(string));
-
-        protected override Type GetRowType()
-        {
-            return typeof(AddressDataRow);
-        }
-
-        protected override DataRow NewRowFromBuilder(DataRowBuilder builder)
-        {
-            return new AddressDataRow(builder);
-        }
+        protected override DataRow NewRowFromBuilder(DataRowBuilder builder) => new AddressDataRow(builder);
     }
 
-    public class AddressDataRow : DataRow
+    public class AddressDataRow : DataRow<AddressDataTable>
     {
         public AddressDataRow(DataRowBuilder builder) : base(builder)
         {
         }
-        public PersonDataRow[] Inhabitants => GetChildRows("AddressDomicile").Cast<PersonDataRow>().ToArray();
-        public PersonDataRow Owner => GetParentRow("PersonProperties") as PersonDataRow;
 
+        public string StreetName => this.Field<string>(Table.StreetName);
+
+        public PersonDataRow[] Inhabitants => GetParentRows("AddressDomicile").Cast<PersonDataRow>().ToArray();
+
+        public PersonDataRow Owner => GetParentRow("PersonProperties") as PersonDataRow;
     }
 }

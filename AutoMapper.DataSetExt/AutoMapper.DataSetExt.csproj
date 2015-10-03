@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataRowResolver.cs" />
+    <Compile Include="AutoMapperExtensions.cs" />
+    <Compile Include="DataSetExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
