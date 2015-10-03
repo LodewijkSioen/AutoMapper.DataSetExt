@@ -14,6 +14,26 @@ namespace AutoMapper.DataSetExt
         protected DataRow(DataRowBuilder builder) : base(builder)
         {
         }
+
+        public IEnumerable<TDataRow> GetChildRows<TDataSet, TDataRow>(Func<TDataSet, DataRelation> relationGetter)
+            where TDataSet : DataSet
+            where TDataRow : DataRow
+        {
+            if (Table.DataSet == null)
+            {
+                throw new NotSupportedException("Relations only work if DataTables are part of a DataSet.");
+            }
+
+            var set = Table.DataSet as TDataSet;
+            if (set == null)
+            {
+                throw new NotSupportedException($"This relation is only available if the table of type {Table.GetType()} is part of a DataSet of type {typeof(TDataSet)}. The current DataSet is of type {Table.DataSet.GetType()}");
+            }
+
+            var relation = relationGetter(set);
+
+            return GetChildRows(relation).Cast<TDataRow>();
+        }
     }
 
     public abstract class DataTable<T> : DataTable, IEnumerable<T> 
