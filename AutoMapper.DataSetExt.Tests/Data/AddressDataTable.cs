@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -28,8 +29,8 @@ namespace AutoMapper.DataSetExt.Tests.Data
 
         public string StreetName => this.Field<string>(Table.StreetName);
 
-        public PersonDataRow[] Inhabitants => GetParentRows("AddressDomicile").Cast<PersonDataRow>().ToArray();
+        public IEnumerable<PersonDataRow> Inhabitants => GetParentRows<DemoDataSet, PersonDataRow>(s => s.AddressDomicile);
 
-        public PersonDataRow Owner => GetParentRow("PersonProperties") as PersonDataRow;
+        public PersonDataRow Owner => GetParentRow<DemoDataSet, PersonDataRow>(s => s.PersonProperties);
     }
 }

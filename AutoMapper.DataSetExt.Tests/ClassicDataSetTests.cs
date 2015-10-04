@@ -38,19 +38,19 @@ namespace AutoMapper.DataSetExt.Tests
             address1.Owner.Name.ShouldBe("Jos");
             address1.Owner.Properties.Count().ShouldBe(2);
             address1.Owner.Properties.ShouldContain(address1);
-            address1.Inhabitants.Length.ShouldBe(2);
+            address1.Inhabitants.Count().ShouldBe(2);
             var address2 = _set.Addresses.ElementAt(1);
             address2.StreetName.ShouldBe("JosAddress2");
             address2.Owner.Name.ShouldBe("Jos");
             address2.Owner.Properties.Count().ShouldBe(2);
             address2.Owner.Properties.ShouldContain(address2);
-            address2.Inhabitants.Length.ShouldBe(0);
+            address2.Inhabitants.Count().ShouldBe(0);
             var address3 = _set.Addresses.ElementAt(2);
             address3.StreetName.ShouldBe("AndréAddress1");
             address3.Owner.Name.ShouldBe("André");
             address3.Owner.Properties.Count().ShouldBe(1);
             address3.Owner.Properties.ShouldContain(address3);
-            address2.Inhabitants.Length.ShouldBe(0);
+            address2.Inhabitants.Count().ShouldBe(0);
         }
     }
 }
