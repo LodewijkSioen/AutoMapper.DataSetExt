@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace AutoMapper.DataSetExt
+namespace DataSetExperiments
 {
     public abstract class DataRow<T> : DataRow
         where T :  DataTable

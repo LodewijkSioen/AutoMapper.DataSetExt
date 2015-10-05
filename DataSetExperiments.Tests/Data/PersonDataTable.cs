@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace AutoMapper.DataSetExt.Tests.Data
+namespace DataSetExperiments.Tests.Data
 {
     public class PersonDataTable : DataTable<PersonDataRow>
     {

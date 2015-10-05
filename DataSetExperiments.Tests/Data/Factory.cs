@@ -1,4 +1,4 @@
-﻿namespace AutoMapper.DataSetExt.Tests.Data
+﻿namespace DataSetExperiments.Tests.Data
 {
     public static class Factory
     {

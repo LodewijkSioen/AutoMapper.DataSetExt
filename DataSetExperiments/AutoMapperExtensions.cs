@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Data;
+using AutoMapper;
 using AutoMapper.Internal;
 
-namespace AutoMapper.DataSetExt
+namespace DataSetExperiments
 {
     public static class Extensions
     {

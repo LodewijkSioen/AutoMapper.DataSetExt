@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AutoMapper.DataSetExt.Tests.Data
+namespace DataSetExperiments.Tests.Data
 {
     public class Address
     {

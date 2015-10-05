@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapper.DataSetExt", "AutoMapper.DataSetExt\AutoMapper.DataSetExt.csproj", "{77B8F25D-0237-465D-86C9-AFACC51B29F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSetExperiments", "DataSetExperiments\DataSetExperiments.csproj", "{77B8F25D-0237-465D-86C9-AFACC51B29F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapper.DataSetExt.Tests", "AutoMapper.DataSetExt.Tests\AutoMapper.DataSetExt.Tests.csproj", "{1E149130-689C-4B18-8B39-B7B76A42626F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSetExperiments.Tests", "DataSetExperiments.Tests\DataSetExperiments.Tests.csproj", "{1E149130-689C-4B18-8B39-B7B76A42626F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

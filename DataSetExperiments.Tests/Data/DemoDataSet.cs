@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace AutoMapper.DataSetExt.Tests.Data
+namespace DataSetExperiments.Tests.Data
 {
     public class DemoDataSet : DataSet
     {

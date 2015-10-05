@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using AutoMapper.DataSetExt.Tests.Data;
+using AutoMapper;
+using DataSetExperiments.Tests.Data;
 using Shouldly;
 
-namespace AutoMapper.DataSetExt.Tests
+namespace DataSetExperiments.Tests
 {
     public class AutoMapperTests : IDisposable
     {

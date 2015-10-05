@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using AutoMapper.DataSetExt.Tests.Data;
+using DataSetExperiments.Tests.Data;
 using Shouldly;
 
-namespace AutoMapper.DataSetExt.Tests
+namespace DataSetExperiments.Tests
 {
     public class ClassicDataSetTests
     {
