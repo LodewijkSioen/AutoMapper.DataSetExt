@@ -19,9 +19,7 @@ namespace AutoMapper.DataSetExt
             where TDataSet : DataSet
             where TDataRow : DataRow
         {
-            var set = CastToCorrectDataSetType<TDataSet>();
-
-            var relation = relationGetter(set);
+            var relation = GetRelationFromDataSet(relationGetter);
 
             return GetChildRows(relation).Cast<TDataRow>();
         }
@@ -30,10 +28,8 @@ namespace AutoMapper.DataSetExt
             where TDataSet : DataSet
             where TDataRow : DataRow
         {
-            var set = CastToCorrectDataSetType<TDataSet>();
-
-            var relation = relationGetter(set);
-
+            var relation = GetRelationFromDataSet(relationGetter);
+            
             return GetParentRows(relation).Cast<TDataRow>();
         }
 
@@ -41,32 +37,38 @@ namespace AutoMapper.DataSetExt
             where TDataSet : DataSet
             where TDataRow : DataRow
         {
-            var set = CastToCorrectDataSetType<TDataSet>();
-
-            var relation = relationGetter(set);
+            var relation = GetRelationFromDataSet(relationGetter);
 
             return GetParentRow(relation) as TDataRow;
         }
 
-        private TDataSet CastToCorrectDataSetType<TDataSet>()
+        private DataRelation GetRelationFromDataSet<TDataSet>(Func<TDataSet, DataRelation> relationGetter)
             where TDataSet : DataSet
         {
             if (Table == null)
             {
-                throw new NotSupportedException($"This DataRow of type {GetType()} is not part of a DataTable. Relations only work if the DataRow is part of a DataTable which belongs to a DataSet.");
+                throw new NotSupportedException($"This DataRow of type '{GetType()}' is not part of a DataTable. Relations only work if the DataRow is part of a DataTable which belongs to a DataSet.");
             }
 
             if (Table.DataSet == null)
             {
-                throw new NotSupportedException($"This DataRow of type {GetType()} is part of a DataTable with name {Table.TableName} and of type {Table.GetType()} that is not part of a DataSet. Relations only work if DataTables are part of a DataSet.");
+                throw new NotSupportedException($"This DataRow of type '{GetType()}' is part of a DataTable with name '{Table.TableName}' and of type '{Table.GetType()}' that is not part of a DataSet. Relations only work if DataTables are part of a DataSet.");
             }
 
             var set = Table.DataSet as TDataSet;
             if (set == null)
             {
-                throw new NotSupportedException($"This relation is only available if the table of type {Table.GetType()} is part of a DataSet of type {typeof(TDataSet)}. The current DataSet is of type {Table.DataSet.GetType()}");
+                throw new NotSupportedException($"This relation is only available if the DataTable of type '{Table.GetType()}' is part of a DataSet of type '{typeof(TDataSet)}'. The current DataSet is of type '{Table.DataSet.GetType()}'.");
             }
-            return set;
+
+            var relation = relationGetter(set);
+
+            if (relation.ParentTable != Table && relation.ChildTable != Table)
+            {
+                throw new NotSupportedException($"Neither the ParentTable ({relation.ParentTable.GetType()}) or the ChildTable ({relation.ChildTable.GetType()}) of this relation refers to the DataTable of this DataRow which is of type '{Table.GetType()}'.");
+            }
+
+            return relation;
         }
     }
 
@@ -77,6 +79,8 @@ namespace AutoMapper.DataSetExt
             : base(tableName)
         {
         }
+
+        protected abstract override DataRow NewRowFromBuilder(DataRowBuilder builder);
 
         protected override Type GetRowType() => typeof(T);
 
